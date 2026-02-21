@@ -1,4 +1,6 @@
-﻿# ASCII Studio
+<img width="1280" height="640" alt="ver" src="https://github.com/user-attachments/assets/248c1669-312f-405f-874d-2767f94f14e4" />
+
+ # ASCII Studio
 
 ASCII Studio is a desktop app for converting images, GIFs, and videos into high-quality ASCII visuals.
 It includes real-time preview, advanced style controls, timeline/editor tools, node workflows, presets, themes, and built-in update delivery.
@@ -34,6 +36,11 @@ Release page:
 - Built-in themes + custom theme mode
 - Multi-language UI (EN/RU/ZH)
 - Built-in update check/install flow
+
+<img width="1919" height="1079" alt="photo-menu" src="https://github.com/user-attachments/assets/7d9ff2b7-8229-4b80-8095-ba71bc356fed" />
+<img width="1919" height="1079" alt="video-menu" src="https://github.com/user-attachments/assets/e04bd5b4-e5cf-4012-88cd-d3d1f65e2961" />
+<img width="1919" height="1079" alt="video-editor-node" src="https://github.com/user-attachments/assets/7fcf593c-5e13-4f97-9d57-359af3832981" />
+<img width="1919" height="1079" alt="photo editor" src="https://github.com/user-attachments/assets/d4756ee0-f86a-4fa9-ae3b-a6b56d304a27" />
 
 ## Build
 
@@ -106,3 +113,5 @@ Required keys:
 
 ## P.S.
 I was bored and wanted to make ASCII art, but couldn't find a suitable program with a wide range of settings, so I created this program. I hope you find it useful =D
+
+<img width="1200" height="1800" alt="234345324" src="https://github.com/user-attachments/assets/1c428160-d172-4fbd-9932-7d7fd9904705" />
