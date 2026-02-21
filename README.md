@@ -1,38 +1,80 @@
-# ultra_ascii_studio
-I was bored and decided to create some ASCII art. After visiting many different websites, I couldn’t find a program or site that offered the level of customization I was looking for. So, with the help of Codex, I ended up building one myself… XD
+﻿# ASCII Studio
 
-# ASCII Studio
+ASCII Studio is a desktop app for converting images, GIFs, and videos into high-quality ASCII visuals.
+It includes real-time preview, advanced style controls, timeline/editor tools, node workflows, presets, themes, and built-in update delivery.
 
-ASCII Studio is a desktop application for converting images, GIFs, and videos into high-quality ASCII visuals.  
-It combines a fast conversion pipeline, real-time preview, export tools, and an integrated editor with layers, timeline controls, masks, and node-based workflows.
+## Downloads
 
-## Key Features
+Latest stable downloads (always point to the newest release):
 
-- Image, GIF, and video input support
+- Windows Setup (x64): [ASCIIStudio_Setup_windows_x64.exe](https://github.com/SnerkK5/ultra_ascii_studio/releases/latest/download/ASCIIStudio_Setup_windows_x64.exe)
+- Windows Web Installer (x64): [ASCIIStudio_WebBootstrap_windows_x64.exe](https://github.com/SnerkK5/ultra_ascii_studio/releases/latest/download/ASCIIStudio_WebBootstrap_windows_x64.exe)
+- Windows Portable (x64): [ASCIIStudio_windows_x64_portable.zip](https://github.com/SnerkK5/ultra_ascii_studio/releases/latest/download/ASCIIStudio_windows_x64_portable.zip)
+- Linux Portable (x64): [ASCIIStudio_linux_x64_portable.tar.gz](https://github.com/SnerkK5/ultra_ascii_studio/releases/latest/download/ASCIIStudio_linux_x64_portable.tar.gz)
+- macOS Portable (Intel x64): [ASCIIStudio_macos_x64_portable.zip](https://github.com/SnerkK5/ultra_ascii_studio/releases/latest/download/ASCIIStudio_macos_x64_portable.zip)
+- macOS Portable (Apple Silicon arm64): [ASCIIStudio_macos_arm64_portable.zip](https://github.com/SnerkK5/ultra_ascii_studio/releases/latest/download/ASCIIStudio_macos_arm64_portable.zip)
+
+Release page:
+- [All releases](https://github.com/SnerkK5/ultra_ascii_studio/releases)
+
+## Core Features
+
+- Image, GIF, and video import
 - Real-time ASCII preview (toggleable)
 - Export to PNG, GIF, MP4, and TXT
-- Preset system with save/load support
-- Built-in style controls and extended Pro Tools effects
+- Presets (save/load)
+- Pro Tools effects and stylization controls
 - Embedded editor with:
-- Text/media layers
-- Mask and crop tools
-- Timeline controls
-- Audio import and source-audio reuse
-- Node workspace (video/audio/data compatible node chains)
+  - text/media layers
+  - crop and mask tools
+  - timeline controls
+  - audio import and source-audio reuse
+  - node workspace (video/audio/data chain)
 - Watermark support with custom watermark text
-- Theme system with multiple built-in themes
-- Custom theme mode with user colors and custom background (image/video/GIF source options in app flow)
-- Welcome/tutorial flow
-- Multi-language UI (English, Russian, Chinese)
-- Easter eggs and hidden interactions
-- Built-in update checker and installer launch flow
+- Built-in themes + custom theme mode
+- Multi-language UI (EN/RU/ZH)
+- Built-in update check/install flow
 
-## Built-in Update System
+## Build
 
-ASCII Studio supports remote update feeds.  
-The app can check a manifest URL and show update status directly in UI (`Install` / `Later`).
+Quick local build (Windows):
 
-Expected manifest format:
+```powershell
+build_release.bat
+```
+
+Platform scripts:
+
+- Windows: `packaging/build_windows.ps1`
+- Linux: `packaging/build_linux.sh`
+- macOS: `packaging/build_macos.sh`
+
+CI workflow:
+
+- `.github/workflows/build-installers-matrix.yml`
+
+## One-Command Release Publish (GitHub CLI)
+
+Use the prepared script:
+
+```powershell
+./packaging/publish_release.ps1
+```
+
+Optional custom tag:
+
+```powershell
+./packaging/publish_release.ps1 -Tag v1.2.0
+```
+
+What it does:
+- detects release assets in `release_bundle/installers/**`
+- creates release if missing, or uploads with overwrite if release exists
+- can auto-mark release as latest
+
+## Update Manifest
+
+App reads `update_feed_url` and expects manifest like:
 
 ```json
 {
@@ -40,68 +82,24 @@ Expected manifest format:
   "installer_url": "https://your-domain/releases/ASCIIStudio_Setup_windows_x64.exe",
   "notes": "Bug fixes and performance improvements"
 }
-Supported keys:
+```
 
-latest_version (required)
-installer_url or url (required)
-notes (optional)
-Tech Stack
-Python
-PySide6 (Qt)
-Pillow
-NumPy
-OpenCV
-imageio / imageio-ffmpeg
-psutil
-Experimental next-gen runtime files are included:
+Required keys:
+- `latest_version`
+- `installer_url` (or `url`)
 
-hybrid_nextgen/ (QML + C++ bridge direction)
-Installers and Packaging
-Available artifact types:
+## Project Files
 
-Offline installer (Windows): ASCIIStudio_Setup.exe
-Web bootstrap installer (compact): ASCIIStudio_WebBootstrap.exe
-Portable package: ASCIIStudio_package.zip
-Build
-Quick local build (Windows)
-powershell
+- `ascii_studio_qt.py` - main app window and UX
+- `render_worker.py` - background rendering pipeline
+- `export_progress.py` - export progress dialog
+- `settings_store.py` - persistent settings
+- `online_installer_qt.py` - installer UI logic
+- `packaging/` - build and release scripts
+- `hybrid_nextgen/` - experimental QML/C++ direction
 
-build_release.bat
-This script builds:
+## Notes
 
-Main app
-Portable package
-Offline setup installer
-Web bootstrap installer
-Release bundle structure
-Platform scripts
-Windows: build_windows.ps1
-Linux: build_linux.sh
-macOS: build_macos.sh
-CI
-GitHub Actions matrix workflow:
-
-build-installers-matrix.yml
-Targets:
-
-Windows x64
-Linux x64
-macOS x64
-macOS arm64
-Repository Structure
-ascii_studio_qt.py — main desktop app
-render_worker.py — rendering worker logic
-export_progress.py — export progress UI
-settings_store.py — settings persistence
-online_installer_qt.py — installer UI logic
-packaging/ — build/packaging scripts
-hybrid_nextgen/ — experimental QML/C++ direction
-Notes
-Full offline installers are larger because of multimedia dependencies.
-For compact distribution, use web bootstrap builds.
-x86 Windows builds may be limited by dependency availability.
-Version
-Current app line: v1.x (with integrated update-feed support).
-
-
-
+- Full offline installers are larger due to multimedia dependencies.
+- For compact delivery, use web bootstrap installers.
+- Some x86 limitations depend on third-party package support.
