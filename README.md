@@ -1,2 +1,3 @@
 # ultra_ascii_studio
-мне было скучно, и я захотел сделать ASCII арт. После множеств посещённых сайтов я не нашёл программу/сайт где можно было бы сделать такой арт с большей настройкой. Так что с помощью codex я сделал это.. XD
+I was bored and decided to create some ASCII art. After visiting many different websites, I couldn’t find a program or site that offered the level of customization I was looking for. So, with the help of Codex, I ended up building one myself… XD
+
