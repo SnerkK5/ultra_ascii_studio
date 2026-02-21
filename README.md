@@ -103,3 +103,6 @@ Required keys:
 - Full offline installers are larger due to multimedia dependencies.
 - For compact delivery, use web bootstrap installers.
 - Some x86 limitations depend on third-party package support.
+
+## P.S.
+I was bored and wanted to make ASCII art, but couldn't find a suitable program with a wide range of settings, so I created this program. I hope you find it useful =D
