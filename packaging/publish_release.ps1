@@ -50,10 +50,15 @@ function Invoke-Gh {
     }
 }
 
-try {
-    Invoke-Gh auth status | Out-Null
-} catch {
-    throw "GitHub CLI is not authenticated. Run: gh auth login"
+$hasEnvToken = -not [string]::IsNullOrWhiteSpace($env:GH_TOKEN)
+if ($hasEnvToken) {
+    Write-Host "Using GH_TOKEN from environment."
+} else {
+    try {
+        Invoke-Gh auth status | Out-Null
+    } catch {
+        throw "GitHub CLI is not authenticated. Use 'gh auth login' or set GH_TOKEN."
+    }
 }
 
 $assetCandidates = @(
