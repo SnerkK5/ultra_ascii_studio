@@ -1,0 +1,17 @@
+﻿.vs/
+__pycache__/
+pycache/
+*.pyc
+
+# Build outputs
+build/
+build_new/
+dist/
+dist_new/
+release/
+release_bundle/
+.build_out/
+
+# Local backups/artifacts
+backups/
+*.pkg

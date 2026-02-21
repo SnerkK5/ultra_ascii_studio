@@ -1,0 +1,6 @@
+{
+  "latest_version": "1.2.1",
+  "installer_url": "https://your-domain.com/releases/ASCIIStudio_Setup.exe",
+  "package_url": "https://your-domain.com/releases/ASCIIStudio_package.zip",
+  "notes": "Bug fixes, new editor tools, performance improvements."
+}

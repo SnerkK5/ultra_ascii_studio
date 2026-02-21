@@ -1,0 +1,99 @@
+name: Build Installers Matrix
+
+on:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    continue-on-error: ${{ matrix.arch == 'x86' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x64
+            py: "3.12"
+            py_arch: x64
+          - arch: x86
+            py: "3.11"
+            py_arch: x86
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.py }}
+          architecture: ${{ matrix.py_arch }}
+      - name: Install build deps
+        if: ${{ matrix.arch == 'x64' }}
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pyinstaller pillow numpy opencv-python imageio imageio-ffmpeg PySide6 psutil
+      - name: Build Windows artifacts
+        if: ${{ matrix.arch == 'x64' }}
+        shell: pwsh
+        run: ./packaging/build_windows.ps1 -Arch ${{ matrix.arch }}
+      - name: x86 placeholder
+        if: ${{ matrix.arch == 'x86' }}
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path release_bundle/installers/windows/x86 | Out-Null
+          @"
+          x86 build is not produced automatically.
+          Reason: PySide6 has no supported win32 wheels for current toolchain.
+          Use x64 installer.
+          "@ | Set-Content release_bundle/installers/windows/x86/README.txt -Encoding UTF8
+      - name: Upload Windows artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: installers-windows-${{ matrix.arch }}
+          path: release_bundle/installers/windows/${{ matrix.arch }}/*
+
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install build deps
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install pyinstaller pillow numpy opencv-python imageio imageio-ffmpeg PySide6 psutil
+      - name: Build Linux artifacts
+        run: |
+          chmod +x ./packaging/build_linux.sh
+          ./packaging/build_linux.sh x64
+      - name: Upload Linux artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: installers-linux-x64
+          path: release_bundle/installers/linux/x64/*
+
+  macos:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-13
+            arch: x64
+          - os: macos-14
+            arch: arm64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install build deps
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install pyinstaller pillow numpy opencv-python imageio imageio-ffmpeg PySide6 psutil
+      - name: Build macOS artifacts
+        run: |
+          chmod +x ./packaging/build_macos.sh
+          ./packaging/build_macos.sh ${{ matrix.arch }}
+      - name: Upload macOS artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: installers-macos-${{ matrix.arch }}
+          path: release_bundle/installers/macos/${{ matrix.arch }}/*

@@ -1,0 +1,13 @@
+{
+    "theme": "midnight",
+    "language": "en",
+    "render_device": "cpu",
+    "default_mode": "Auto",
+    "trail_intensity": "high",
+    "ascii_chars": "@%#*+=-:. ",
+    "brightness": 1.0,
+    "contrast": 1.0,
+    "gamma": 1.0,
+    "invert": false,
+    "watermark": true
+}

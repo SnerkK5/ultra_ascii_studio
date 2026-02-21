@@ -1,0 +1,61 @@
+# localization.py
+
+LOCALES = {
+    "en": {
+        "load": "Load",
+        "render": "Render",
+        "export": "Export",
+        "settings": "Settings",
+        "gallery": "Gallery",
+        "theme": "Theme",
+        "style": "Style",
+        "width": "Width (chars)",
+        "font": "Font size",
+        "brightness": "Brightness",
+        "contrast": "Contrast",
+        "gamma": "Gamma",
+        "invert": "Invert",
+        "watermark": "Watermark",
+        "ascii_charset": "ASCII Charset",
+        "trail_intensity": "Trail intensity",
+        "render_device": "Render device"
+    },
+    "ru": {
+        "load": "Загрузить",
+        "render": "Рендер",
+        "export": "Экспорт",
+        "settings": "Настройки",
+        "gallery": "Галерея",
+        "theme": "Тема",
+        "style": "Стиль",
+        "width": "Ширина (симв.)",
+        "font": "Размер шрифта",
+        "brightness": "Яркость",
+        "contrast": "Контраст",
+        "gamma": "Гамма",
+        "invert": "Инвертировать",
+        "watermark": "Водяной знак",
+        "ascii_charset": "Набор ASCII",
+        "trail_intensity": "Интенсивность дымка",
+        "render_device": "Устройство рендера"
+    },
+    "zh": {
+        "load": "加载",
+        "render": "渲染",
+        "export": "导出",
+        "settings": "设置",
+        "gallery": "画廊",
+        "theme": "主题",
+        "style": "风格",
+        "width": "宽度（字符）",
+        "font": "字体大小",
+        "brightness": "亮度",
+        "contrast": "对比度",
+        "gamma": "伽玛",
+        "invert": "反转",
+        "watermark": "水印",
+        "ascii_charset": "ASCII字符集",
+        "trail_intensity": "烟雾强度",
+        "render_device": "渲染设备"
+    }
+}
