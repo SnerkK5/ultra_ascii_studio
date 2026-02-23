@@ -1,0 +1,7 @@
+﻿.gradle/
+.idea/
+local.properties
+*.hprof
+captures/
+.DS_Store
+**/build/
