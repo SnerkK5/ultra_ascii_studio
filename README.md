@@ -13,6 +13,11 @@ Latest stable downloads (always point to the newest release):
 - Linux Portable (x64): [ASCIIStudio_linux_x64_portable.tar.gz](https://github.com/SnerkK5/ultra_ascii_studio/releases/latest/download/ASCIIStudio_linux_x64_portable.tar.gz)
 - macOS Portable (Intel x64): [ASCIIStudio_macos_x64_portable.zip](https://github.com/SnerkK5/ultra_ascii_studio/releases/latest/download/ASCIIStudio_macos_x64_portable.zip)
 - macOS Portable (Apple Silicon arm64): [ASCIIStudio_macos_arm64_portable.zip](https://github.com/SnerkK5/ultra_ascii_studio/releases/latest/download/ASCIIStudio_macos_arm64_portable.zip)
+- Android APK (universal debug): [ASCIIStudio_Android_universal_debug.apk](https://github.com/SnerkK5/ultra_ascii_studio/releases/latest/download/ASCIIStudio_Android_universal_debug.apk)
+- Android APK (universal release unsigned): [ASCIIStudio_Android_universal_release_unsigned.apk](https://github.com/SnerkK5/ultra_ascii_studio/releases/latest/download/ASCIIStudio_Android_universal_release_unsigned.apk)
+- Checksums: [SHA256SUMS.txt](https://github.com/SnerkK5/ultra_ascii_studio/releases/latest/download/SHA256SUMS.txt)
+
+These assets are now published automatically by CI on tag push (`v*`) or by manual workflow dispatch with publish enabled.
 
 Release page:
 - [All releases](https://github.com/SnerkK5/ultra_ascii_studio/releases)
@@ -46,6 +51,7 @@ build_release.bat
 Platform scripts:
 
 - Windows: `packaging/build_windows.ps1`
+- Android: `packaging/build_android.ps1`
 - Linux: `packaging/build_linux.sh`
 - macOS: `packaging/build_macos.sh`
 
@@ -91,6 +97,7 @@ Required keys:
 ## Project Files
 
 - `ascii_studio_qt.py` - main app window and UX
+- `android_app/` - Android (phone-first) app built with Jetpack Compose
 - `render_worker.py` - background rendering pipeline
 - `export_progress.py` - export progress dialog
 - `settings_store.py` - persistent settings
