@@ -75,7 +75,10 @@ $assetCandidates = @(
     "release_bundle/installers/macos/x64/ASCIIStudio_macos_x64_portable.zip",
     "release_bundle/installers/macos/x64/SHA256SUMS.txt",
     "release_bundle/installers/macos/arm64/ASCIIStudio_macos_arm64_portable.zip",
-    "release_bundle/installers/macos/arm64/SHA256SUMS.txt"
+    "release_bundle/installers/macos/arm64/SHA256SUMS.txt",
+    "release_bundle/installers/android/universal/ASCIIStudio_Android_universal_debug.apk",
+    "release_bundle/installers/android/universal/ASCIIStudio_Android_universal_release_unsigned.apk",
+    "release_bundle/installers/android/universal/SHA256SUMS.txt"
 )
 
 $assets = @()
