@@ -6,7 +6,7 @@ on:
       publish_release:
         description: "Attach built artifacts to a GitHub Release"
         required: false
-        default: false
+        default: true
         type: boolean
       release_tag:
         description: "Release tag to publish (example: v1.2.0). Required when publish_release=true in manual run."
@@ -179,7 +179,7 @@ jobs:
       always() &&
       (
         startsWith(github.ref, 'refs/tags/v') ||
-        (github.event_name == 'workflow_dispatch' && inputs.publish_release)
+        github.event_name == 'workflow_dispatch'
       ) &&
       needs.windows.result == 'success' &&
       needs.linux.result == 'success' &&
@@ -197,9 +197,12 @@ jobs:
             TAG="${GITHUB_REF#refs/tags/}"
           else
             TAG="${{ inputs.release_tag }}"
+            if [[ -z "${TAG}" ]]; then
+              TAG="$(gh api repos/${GITHUB_REPOSITORY}/releases/latest --jq .tag_name 2>/dev/null || true)"
+            fi
           fi
           if [[ -z "${TAG}" ]]; then
-            echo "release_tag is required for manual publish" >&2
+            echo "release_tag is empty and no latest release tag was found" >&2
             exit 1
           fi
           echo "tag=${TAG}" >> "${GITHUB_OUTPUT}"
