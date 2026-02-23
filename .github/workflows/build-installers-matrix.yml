@@ -127,17 +127,41 @@ jobs:
       - name: Install Android SDK packages
         run: |
           sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+          yes | sdkmanager --licenses >/dev/null || true
       - name: Build Android APKs
         run: |
           cd android_app
           chmod +x ./gradlew
-          echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
-          ./gradlew --no-daemon assembleDebug assembleRelease
+          SDK_PATH="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-}}"
+          if [ -z "$SDK_PATH" ] || [ ! -d "$SDK_PATH" ]; then
+            if [ -d "$HOME/Android/Sdk" ]; then
+              SDK_PATH="$HOME/Android/Sdk"
+            elif [ -d "$HOME/.android/sdk" ]; then
+              SDK_PATH="$HOME/.android/sdk"
+            fi
+          fi
+          if [ -z "$SDK_PATH" ] || [ ! -d "$SDK_PATH" ]; then
+            echo "Android SDK path not found. ANDROID_SDK_ROOT='$ANDROID_SDK_ROOT' ANDROID_HOME='$ANDROID_HOME'"
+            exit 1
+          fi
+          echo "Using Android SDK: $SDK_PATH"
+          echo "sdk.dir=$SDK_PATH" > local.properties
+          ./gradlew --no-daemon --stacktrace assembleDebug assembleRelease
           mkdir -p ../release_bundle/installers/android/universal
           cp app/build/outputs/apk/debug/app-debug.apk ../release_bundle/installers/android/universal/ASCIIStudio_Android_universal_debug.apk
           cp app/build/outputs/apk/release/app-release-unsigned.apk ../release_bundle/installers/android/universal/ASCIIStudio_Android_universal_release_unsigned.apk
           cd ../release_bundle/installers/android/universal
           sha256sum ASCIIStudio_Android_universal_debug.apk ASCIIStudio_Android_universal_release_unsigned.apk > SHA256SUMS.txt
+      - name: Upload Android diagnostics (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-diagnostics
+          path: |
+            android_app/local.properties
+            android_app/app/build/reports/**
+            android_app/app/build/outputs/logs/**
+            android_app/build/reports/**
       - name: Upload Android artifacts
         uses: actions/upload-artifact@v4
         with:
